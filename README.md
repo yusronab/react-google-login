@@ -1,6 +1,24 @@
 # Yusron Arly Bazarah
 
-Simple React.js web for exercise
+Simple React.js website for exercise
+
+# Routes
+
+### `/login`
+
+User can login and redirect to homepage with this route
+
+### `/`
+
+It's route for homepage after user succes login
+
+### `/blog`
+
+For search cars with some criteria, use this route
+
+### `/about`
+
+Exercise for upload image in React
 
 # Features
 
@@ -17,6 +35,10 @@ Clean state management with `react-redux`, for manipulating cars data already us
 ### Rest API
 
 For backend utilities
+
+### React Bootstrap
+
+Make UI website better
 
 # Getting Started
 
