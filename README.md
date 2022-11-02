@@ -6,15 +6,15 @@ Simple React.js web for exercise
 
 Some features are available
 
-## React Google Auth
+### React Google Auth
 
 Authentication using `@react-oauth/google` for better life
 
-## React Redux
+### React Redux
 
-Clean state management with `react-redux`
+Clean state management with `react-redux`, for manipulating cars data already using redux, but for user data not yet. Calm, because it's all about time
 
-## Rest API
+### Rest API
 
 For backend utilities
 
