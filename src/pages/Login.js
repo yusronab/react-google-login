@@ -1,10 +1,11 @@
-import "../App.css"
+import "../styles/App.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import GoogleLogin from "react-google-login";
-import TextField from '@mui/material/TextField';
 import { Container } from 'react-bootstrap'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import TextField from '@mui/material/TextField';
+import LoadingSpinner from "../components/LoadingSpinner";
+import logo from '../assets/logo.svg'
 
 async function doLogin({ email, password }) {
     const response = await fetch("https://api-resto-auth.herokuapp.com/api/v1/user/login", {
@@ -68,6 +69,7 @@ function Login() {
     }
 
     const responseSuccessGoogle = (response) => {
+        setIsLoading(true)
         console.log(response)
         if (response.credential) {
             doLoginGoogle(response.credential)
@@ -79,11 +81,13 @@ function Login() {
                 .catch((err) => {
                     console.log('onSuccess', err.message)
                 })
+                .finally(() => setIsLoading(false))
         }
     }
 
     return (
         <div className="App-header">
+            <img width="100" src={logo} alt="react img"/>
             <Container className="mb-5">
                 <form onSubmit={handleSubmit} className="d-flex flex-column align-items-center">
                     <TextField
@@ -106,7 +110,7 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
-                    <button type="submit" value={isLoading ? "Loading..." : "Login"} className="btn btn-success mt-3 px-4">{isLoading ? "Loading" : "Login"}</button>
+                    <button type="submit" value={isLoading ? "Loading" : "Login"} className="btn btn-success mt-3 px-4">{isLoading ? <LoadingSpinner /> : "Login"}</button>
                 </form>
             </Container>
             <GoogleOAuthProvider clientId="785137861913-jraaaegd6mhuunhiuntrpighacick6ea.apps.googleusercontent.com">

@@ -1,6 +1,7 @@
-import '../App.css';
+import '../styles/App.css';
+import logo from '../assets/logo.svg'
+import LoadingSpinner from './LoadingSpinner';
 import { Container, Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
-import logo from '../logo.svg'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
@@ -13,12 +14,14 @@ async function currentUser(token) {
     })
 
     const data = await response.json()
-    
+
     return data
 }
 
 function Navigation() {
     const [user, setUser] = useState(null)
+
+    const currentPath = window.location.pathname
 
     const navigate = useNavigate()
 
@@ -37,7 +40,7 @@ function Navigation() {
     }
 
     return (
-        <Navbar key="lg" expand="lg" className="mb-3" style={{ background: '#F1F3FF' }}>
+        <Navbar key="lg" expand="lg" fixed="top" style={{ background: '#F1F3FF' }}>
             <Container>
                 <Navbar.Brand href="/">bcr</Navbar.Brand>
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
@@ -54,21 +57,29 @@ function Navigation() {
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3 align-items-center">
                             <Nav.Link href="/about">About</Nav.Link>
-                            <Nav.Link href="/">Our Services</Nav.Link>
-                            <Nav.Link href="/">Why Us</Nav.Link>
-                            <Nav.Link href="/">Testimonial</Nav.Link>
-                            <Nav.Link href="/">FAQ</Nav.Link>
+                            <Nav.Link href="/blog">Blog</Nav.Link>
+                            {currentPath === "/" &&
+                                <>
+                                    <Nav.Link href="/">Our Services</Nav.Link>
+                                    <Nav.Link href="/">Why Us</Nav.Link>
+                                    <Nav.Link href="/">Testimonial</Nav.Link>
+                                    <Nav.Link href="/">FAQ</Nav.Link>
+                                </>
+                            }
                             <NavDropdown
                                 id={`offcanvasNavbarDropdown-expand-lg`}
                                 title={
                                     <div className="user-image">
-                                        <img width="50"
-                                            src={logo}
-                                            alt="user img"
-                                        />{!!user ? (
-                                            user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                                        {!!user ? (
+                                            <>
+                                                <img width="50"
+                                                    src={logo}
+                                                    alt="user img"
+                                                />
+                                                {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+                                            </>
                                         ) : (
-                                            "Loading..."
+                                            <LoadingSpinner />
                                         )}
                                     </div>
                                 }

@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../App.css';
-import logo from '../logo.svg'
+import '../styles/App.css';
+import logo from '../assets/logo.svg'
 import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 
