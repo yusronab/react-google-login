@@ -9,23 +9,31 @@ export default function FormFilter() {
     const [driver, setDriver] = useState("")
     const [date, setDate] = useState("")
     const [time, setTime] = useState("")
-    const [passenger, setPassenger] = useState("")
+    const [capacity, setCapacity] = useState("")
 
     const dispatch = useDispatch()
 
     const handleFilter = (e) => {
         e.preventDefault()
 
+        let capacityValue = 0
+
+        if (capacity!=="") {
+            capacityValue = parseInt(capacity)
+        }
+
+        const dateValue = new Date(`${date} ${time}`)
+
         const driverValue = driver==="true"
 
-        dispatch(getFilteredCar({ driver: driverValue }))
+        dispatch(getFilteredCar({ driver: driverValue, date: dateValue, capacity: capacityValue }))
     }
 
     const handleReset = (e) => {
         setDriver("")
         setDate("")
         setTime("")
-        setPassenger("")
+        setCapacity("")
 
         dispatch(getFilteredCar({ reset: true }))
     }
@@ -52,15 +60,15 @@ export default function FormFilter() {
                             <p>Waktu Jemput/Ambil</p>
                             <select defaultValue={time} onChange={(e) => setTime(e.target.value)} style={{ width: "100%", height: "40px" }} required>
                                 <option value="" disabled hidden>Pilih Waktu</option>
-                                <option value="09.00">09.00</option>
-                                <option value="10.00">10.00</option>
-                                <option value="11.00">11.00</option>
-                                <option value="12.00">12.00</option>
+                                <option value="09:00:00">09.00</option>
+                                <option value="10:00:00">10.00</option>
+                                <option value="11:00:00">11.00</option>
+                                <option value="12:00:00">12.00</option>
                             </select>
                         </Col>
                         <Col>
                             <p>Jumlah Penumpang (opsional)</p>
-                            <input type="text" value={passenger} placeholder="Jumlah Penumpang" onChange={(e) => setPassenger(e.target.value)}
+                            <input type="text" value={capacity} placeholder="Jumlah Penumpang" onChange={(e) => setCapacity(e.target.value)}
                                 onKeyPress={(e) => !/[0-9]/.test(e.key) && e.preventDefault()} style={{ width: "100%", height: "40px" }} />
                         </Col>
                         <Col>

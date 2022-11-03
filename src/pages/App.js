@@ -2,7 +2,7 @@ import Navigation from '../components/Navigation'
 import Heading from '../components/Heading';
 import CarModal from '../components/CarModal';
 import { useEffect, useState } from 'react'
-import { Container, Col, Row, Card, Modal } from 'react-bootstrap'
+import { Container, Col, Row, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailCar, getListCars } from "../actions/CarsAction";
 
@@ -25,7 +25,7 @@ function App() {
 
   const detailCar = (e, id) => {
     e.preventDefault()
-    
+
     dispatch(getDetailCar({ carId: id }))
 
     setModal(true)
@@ -33,6 +33,10 @@ function App() {
 
   return (
     <div className="home-page">
+      <CarModal
+        show={modal}
+        onHide={() => setModal(false)}
+      />
       <Navigation />
       <Heading />
       <Container>
@@ -55,10 +59,6 @@ function App() {
                       <div className="d-flex mt-auto mb-2">
                         <button className="btn btn-success" onClick={(e) => detailCar(e, car.id)}>Go somewhere</button>
                       </div>
-                      <CarModal
-                        show={modal}
-                        onHide={() => setModal(false)}
-                      />
                     </Card.Body>
                   </Card>
                 </Col>

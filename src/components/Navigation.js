@@ -4,6 +4,8 @@ import LoadingSpinner from './LoadingSpinner';
 import { Container, Nav, Navbar, NavDropdown, Offcanvas } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { actionUserLogout } from '../actions/UserAction';
 
 async function currentUser(token) {
     const response = await fetch("https://api-resto-auth.herokuapp.com/api/v1/user/current", {
@@ -24,6 +26,7 @@ function Navigation() {
     const currentPath = window.location.pathname
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const token = localStorage.getItem("token")
@@ -35,7 +38,7 @@ function Navigation() {
     }, [])
 
     function handleLogout() {
-        localStorage.removeItem("token")
+        dispatch(actionUserLogout())
         navigate("/login")
     }
 

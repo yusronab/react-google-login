@@ -1,9 +1,12 @@
-function NotFound() {
+import { Container } from 'react-bootstrap'
+
+export default function NotFound() {
     return(
-        <div className="not-page">
-            <h1>Not Found wkwk</h1>
+        <div className="not-page py-5">
+            <Container>
+                <h1>Not Found wkwk</h1>
+                <a className="btn btn-success" href="/">Kembali ke beranda</a>
+            </Container>
         </div>
     )
 }
-
-export default NotFound

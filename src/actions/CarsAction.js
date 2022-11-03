@@ -75,10 +75,10 @@ export const getFilteredCar = (param) => {
             timeout: 120000
         })
             .then((response) => {
-                const { driver } = param
-
-                const filter = response.data.data.filter((car) => car.available === driver)
-
+                const { driver, date, capacity } = param
+                
+                const filter = response.data.data.filter((car) => car.available === driver && car.capacity >= capacity && (new Date(car.availableAt) <= date))
+                
                 dispatch({
                     type: FILTERED_CARS,
                     payload: {
